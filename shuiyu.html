@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			body {
+				background: url(img/body.jpg);
+				font: normal 13px/22px Arial, Helvetica, sans-serif;
+				color: #505050;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="user">
+			<div class="location">
+				<span class="iconfont icon-home loc-left">当前位置：水域</span>
+			</div>
+			<div class="container">
+				<div class="option">
+					<strong class="fl">共<b id="count"></b>个水域</strong>
+					<a href="http://www.lx0575.com/player/" style="margin-left: 20px;line-height: 36px;background: #337FE5;padding: 5px 10px;border-radius: 5px; color: #fff;">添加</a>
+				</div>
+				
+				<form name="cmsform" id="cmsform" method="post" action="?options=batch">
+					<table width="100%" class="item" id="table">
+						<tbody>
+							<tr class="title">
+								<td width="10%" align="center">ID</td>
+								<td width="10%">水域名称</td>
+								<td width="15%">温度</td>
+								<td width="15%">PH值</td>
+								<td width="15%">溶解氧</td>
+								<td width="15%">浊度</td>
+								<td width="20%" align="center">操作</td>
+							</tr>
+							<!--<tr>
+								<td align="center" valign="middle"><input type="checkbox" name="ids[]" value="209"></td>
+								<td>001</td>
+								<td>服务类型</td>
+								<td>选择疯鸟跑腿，服务类型包括（拿货、送货、外卖）</td>
+								<td><a style="color: #136baf;">编辑</a> <a style="color:red;" class="del" iid=' + json[a].id + '> 删除</a></td>
+							</tr>-->
+
+						</tbody>
+					</table>
+					
+				</form>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script>
+			var t = document.getElementById('table');
+			$.ajax({
+				type: "get",
+				url: "http://www.lx0575.com/water/getInfor",
+				data: {},
+				async: true,
+				success: function(data) {
+					var json = data.list;
+					console.log(json)
+					var num = 0;
+			var count = document.getElementById('count');
+					
+					for(a in json) {
+						if(json[a].list.length != 0) {
+							num = num + 1;				
+							var r = t.insertRow();
+							var c = r.insertCell();
+							c.innerHTML = json[a].list[0].id;
+							var c = r.insertCell();
+							c.innerHTML = json[a].list[0].use;
+							var c = r.insertCell();
+							c.innerHTML = json[a].list[0].paramValue + json[a].list[0].unit + ' ' + '<a href="detail.html?waterid=' + json[a].list[0].id + '&paramid='+ '1' + '" style="color: #136baf;">查看</a>';
+							var c = r.insertCell();
+							c.innerHTML = json[a].list[1].paramValue + json[a].list[1].unit + ' ' + '<a href="detail.html?waterid=' + json[a].list[0].id + '&paramid='+ '2' + '" style="color: #136baf;">查看</a>';
+							var c = r.insertCell();
+							c.innerHTML = json[a].list[2].paramValue + json[a].list[2].unit + ' ' + '<a href="detail.html?waterid=' + json[a].list[0].id + '&paramid='+ '3' + '" style="color: #136baf;">查看</a>';
+							var c = r.insertCell();
+							c.innerHTML = json[a].list[3].paramValue + json[a].list[3].unit + ' ' + '<a href="detail.html?waterid=' + json[a].list[0].id + '&paramid='+ '4' + '" style="color: #136baf;">查看</a>';
+							var c = r.insertCell();
+							c.innerHTML = ' <a style="color:red;" class="del" iid=' + json[a].list[0].id + '> 删除</a>';
+						}
+					}
+					console.log(num)
+					count.innerHTML = num;
+					del_event();
+				}
+			});
+
+			function del_event() {
+				var del = document.getElementsByClassName('del');
+				//			    alert(del.length);
+
+				for(var i = 0; i < del.length; i++) {
+					del[i].addEventListener('click', function() {
+						var judge = confirm("确定将此记录删除?");
+						var id = this.getAttribute("iid");
+
+						if(judge == true) {
+							alert('删除成功')
+						}
+					});
+				}
+			}
+		</script>
+	</body>
+
+</html>

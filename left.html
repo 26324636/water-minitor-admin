@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<base target="main" />
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<title>left</title>
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<style type="text/css">
+			body {
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="nav">
+			<ul>
+				<li>
+					<div class="title hover">
+						<a href="gaikuang.html" target="main">
+							<div class="iconfont icon-diannao"></div>概况</a>
+					</div>
+				</li>
+				<li>
+					<div class="title">
+						<a href="shezhi.html" target="main">
+							<div class="iconfont icon-iconyijianfankui"></div>设置</a>
+					</div>
+				</li>
+				<li>
+					<div class="title">
+						<a href="shuiyu.html" target="main">
+							<div class="iconfont icon-shouye"></div>水域</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript">
+			if(window.innerHeight) {
+				var h = window.innerHeight;
+			} else if((document.body) && (document.body.clientHeight)) {
+				var h = document.body.clientHeight;
+			}
+			h = h - 1;
+			var nav = document.getElementById('nav');
+			nav.style.cssText = 'background: #505050;color: white;height:' + h + 'px;';
+
+			$("#nav ul li").click(function() {
+				var num = $(this).find(".con").length;
+				//								alert(num);
+				if(num == 0) {
+					//					alert("ddd");
+					$(this).siblings().find(".con").slideUp();
+					$(this).find(".title").addClass("hover").parent().siblings().find(".title").removeClass("hover");
+				} else {
+					$(this).find(".con").slideDown().parent().siblings().find(".con").slideUp();
+					$(this).find(".title").addClass("hover").parent().siblings().find(".title").removeClass("hover");
+				}
+			});
+		</script>
+
+	</body>
+
+</html>

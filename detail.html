@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+				<link rel="stylesheet" type="text/css" href="css/chart.css"/>
+				<script src="js/mui.min.js"></script>
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			body {
+				background: url(img/body.jpg);
+				font: normal 13px/22px Arial, Helvetica, sans-serif;
+				color: #505050;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="user">
+			<div class="location">
+				<span class="iconfont icon-home loc-left">当前位置： 水域 > 水域详情</span>
+			</div>
+			<div id="container" ></div>
+			<!--<div class="container">
+				<div class="option">
+					<strong class="fl">共<b id="count"></b>条记录</strong>
+				</div>
+				<form name="cmsform" id="cmsform" method="post" action="?options=batch">
+					<table width="100%" class="item" id="table">
+						<tbody>
+							<tr class="title">
+								<td width="25%">水域名称</td>
+								<td width="25%" id="detailText"></td>
+								<td width="25%">时间</td>
+								<td width="25%" align="center">操作</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</form>
+			</div>-->
+		</div>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/echarts.min.js"></script>
+		<script type="text/javascript" src="js/echarts-gl.min.js"></script>
+		<script type="text/javascript" src="js/ecStat.min.js"></script>
+		<script type="text/javascript" src="js/dataTool.min.js"></script>
+		<script type="text/javascript" src="js/china.js"></script>
+		<script type="text/javascript" src="js/world.js"></script>
+		<script type="text/javascript" src="js/api"></script>
+		<script type="text/javascript" src="js/bmap.min.js"></script>
+		<script type="text/javascript" src="js/simplex.js"></script>
+		<script>
+			function getQueryString(name) {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return unescape(r[2]);
+				return null;
+			}
+			var waterid = getQueryString("waterid");
+			var paramid = getQueryString("paramid");
+
+			console.log(waterid)
+			console.log(paramid)
+			
+			getInfo(waterid,paramid);
+			
+			 function getInfo(waterId,paramId){
+		    	var wurl = 'http://www.lx0575.com/water/getInforByParam	';
+		    	var title = document.getElementsByClassName('mui-title');
+		    	var upperLimit = document.getElementsByClassName('upperLimit-num');
+		    	var lowerLimit = document.getElementsByClassName('lowerLimit-num');
+		    	var current = document.getElementsByClassName('current-num');
+//				console.log(title[0].innerHTML)
+				mui.ajax(wurl, {
+					data: {
+						watersId:waterId,
+						pasramId:paramId
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'GET', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						//'Content-Type': 'application/json'
+					},
+					success: function(data) {		
+						var items = data.items;
+						console.log(items)
+						var use = items[0].use; //水域名称
+						var seriesName = items[0].param; //坐标上的名称
+						var alarmMax = items[0].alarmMax; //报警最高值
+						var alarmMin = items[0].alarmMin; //报警最小值
+						var scopeMin = items[0].scopeMin; //纵坐标最小值
+						var scopeMax = items[0].scopeMax; //纵坐标最大值
+						var paramId = items[0].paramId; //参数id（温度：1，PH值：2，溶解氧：3，浊度：4）
+						var value = items[0].paramValue; //数值
+						var curvePoints = items[0].curvePoints; //一页显示多少个点
+						var unit =  items[0].unit; //单位
+						
+						
+						//横坐标数据处理（时间）
+						var xAxisData = [];
+						for(var i = 0 ; i < items.length ; i ++){
+							var gmtCreate = items[i].gmtCreate;
+							var time = gmtCreate.substr(0,16);
+							xAxisData.push(time)
+						}
+						
+						//纵坐标数据处理
+						var yAxisData = [];
+						if(paramId == 1){
+							for(var i = 0 ; i <= 45 ; i += 5){
+								var obj = {};
+								obj.yAxis = i;
+								yAxisData.push(obj);
+							}
+						}else if(paramId == 2){
+							for(var i = 0 ; i <= 14 ; i ++){
+								var obj = {};
+								obj.yAxis = i;
+								yAxisData.push(obj);
+							}
+						}else if(paramId == 3){
+							for(var i = 0 ; i <= 20 ; i += 2){
+								var obj = {};
+								obj.yAxis = i;
+								yAxisData.push(obj);
+							}
+						}else if(paramId == 4){
+							for(var i = 0 ; i <= 4000 ; i += 400){
+								var obj = {};
+								obj.yAxis = i;
+								yAxisData.push(obj);
+							}
+						}
+						
+						
+						//具体数值处理
+						var paramValue = [];
+						for(var i =  0; i < items.length ; i ++){
+							paramValue.push(items[i].paramValue);
+						}
+						
+						//报警颜色处理
+						var pieces = [];
+						var color = {};
+						color.gt = scopeMin;
+						color.lte = alarmMin;
+						color.color = 'red';
+						pieces.push(color);
+						
+						var color = {};
+						color.gt = alarmMin;
+						color.lte = alarmMax;
+						color.color = 'green';
+						pieces.push(color);
+						
+						var color = {};
+						color.gt = alarmMax;
+						color.lte = scopeMax;
+						color.color = 'red';
+						pieces.push(color);
+						
+						//一页显示多少点
+						console.log(xAxisData.length)
+						if(curvePoints >= xAxisData.length){
+							startValue = xAxisData[0];
+						}else{
+							startValue = xAxisData[xAxisData.length - curvePoints];
+						}
+						console.log(startValue)
+						
+						var info = {};
+						info.seriesName = seriesName;
+						info.xAxisData = xAxisData;
+						info.yAxisData = yAxisData;
+						info.paramValue = paramValue;
+						info.pieces = pieces;
+						info.startValue = startValue;
+						
+						draw(info);
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log(type);
+					},
+					complete:function(){
+					}
+				});
+		    }
+			
+			
+			function draw(info){
+				var dom = document.getElementById("container");
+				var myChart = echarts.init(dom);
+				var app = {};
+				option = null;
+				myChart.setOption(option = {
+					title: {
+						text: ''
+					},
+					tooltip: {
+						trigger: 'axis'
+					},
+					xAxis: {
+						data: info.xAxisData
+					},
+					yAxis: {
+						splitLine: {
+							show: false
+						}
+					},
+					toolbox: {
+						left: 'center',
+						feature: {
+							dataZoom: {
+								yAxisIndex: 'none'
+							},
+							restore: {},
+							saveAsImage: {}
+						}
+					},
+					dataZoom: [{
+						startValue: info.startValue
+					}, {
+						type: 'inside'
+					}],
+					visualMap: {
+						top: 10,
+						right: 10,
+						pieces: info.pieces,
+						outOfRange: {
+							color: '#999'
+						}
+					},
+					series: {
+						name: info.seriesName,
+						type: 'line',
+						//						data: data.map(function(item) {
+						//							return item[1];
+						//						}),
+						data:info.paramValue,
+						markLine: {
+							silent: true,
+							data:info.yAxisData
+						}
+					}
+				});
+				if(option && typeof option === "object") {
+					myChart.setOption(option, true);
+				}
+			}
+			
+//			var t = document.getElementById('table');
+//			var count = document.getElementById('count');
+//			var detailText = document.getElementById('detailText');
+//			if(paramid == 1){
+//				detailText.innerHTML ='温度';
+//			}else if(paramid == 2){
+//				detailText.innerHTML ='PH值';
+//			}else if(paramid == 3){
+//				detailText.innerHTML ='溶解氧';
+//			}else if(paramid == 4){
+//				detailText.innerHTML ='浊度';
+//			}
+//
+//			$.ajax({
+//				type: "get",
+//				url: "http://www.lx0575.com/water/getInforByParam",
+//				data: {
+//					watersId: waterid,
+//					pasramId: paramid
+//				},
+//				async: true,
+//				success: function(data) {
+//					var json = data.items.reverse();
+//					console.log(json)
+//					var num = json.length;
+//					count.innerHTML = num;
+//					for(a in json) {
+//						var r = t.insertRow();
+//						var c = r.insertCell();
+//						c.innerHTML = json[a].use;
+//						var c = r.insertCell();
+//						c.innerHTML = json[a].paramValue + json[a].unit;
+//						var c = r.insertCell();
+//						c.innerHTML = json[a].gmtCreate;
+//						var c = r.insertCell();
+//						c.innerHTML = '<a style="color:red;" class="del" iid=' + json[a].id + '> 删除</a>';
+//					}
+//					del_event();
+//				}
+//			});
+//
+//			function del_event() {
+//				var del = document.getElementsByClassName('del');
+//				//			    alert(del.length);
+//
+//				for(var i = 0; i < del.length; i++) {
+//					del[i].addEventListener('click', function() {
+//						var judge = confirm("确定将此记录删除?");
+//						var id = this.getAttribute("iid");
+//
+//						if(judge == true) {
+//							$.ajax({
+//								type: "get",
+//								url: "http://101.200.58.92/shiyan/index.php/Web/user_delete",
+//								data: {
+//									iid_data: id
+//								},
+//								async: true,
+//								success: function(data) {
+//									json = JSON.parse(data);
+//									if(json == 1) {
+//										alert("删除成功");
+//									} else {
+//										alert("删除失败");
+//									}
+//									window.location.reload();
+//								}
+//							});
+//						}
+//					});
+//				}
+//			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>基本设置</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			body {
+				background: url(img/body.jpg);
+				font: normal 13px/22px Arial, Helvetica, sans-serif;
+				color: #505050;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="jiben">
+			<div class="location">
+				<span class="iconfont icon-home loc-left">当前位置：水域参数设置</span>
+			</div>
+			<div class="container">
+				<form name="setform" id="setform" action="?options=true" method="post">
+					<table width="100%" class="item">
+						<tbody>
+							<tr class="title">
+								<td colspan="3">水域参数设置</td>
+							</tr>
+							<tr>
+								<td>温度单位：</td>
+								<td><input type="text" id="temp_unit" class="tl" value="" placeholder="请输入温度单位（如：℃）"></td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="14%">温度下限值：</td>
+								<td width="41%"><input type="text" id="temp_scopeMin" value="" class="tl" placeholder="请输入温度下限值"></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>温度上限值：</td>
+								<td><input type="text" id="temp_scopeMax" class="tl" value="" placeholder="请输入温度上限值"></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>温度警报下限值：</td>
+								<td><input type="text" id="temp_alarmMin" value="" class="tl" placeholder="请输入温度警报下限值"></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>温度警报上限值：</td>
+								<td><input type="text" id="temp_alarmMax" class="tl" value="" placeholder="请输入温度警报上限值"></td>
+								<td>&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td width="14%">PH值下限值：</td>
+								<td width="41%"><input type="text" id="ph_scopeMin" value="" class="tl" placeholder="请输入PH值下限值"></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>PH值上限值：</td>
+								<td><input type="text" id="ph_scopeMax" class="tl" value="" placeholder="请输入PH值上限值" required=""></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>PH值警报下限值：</td>
+								<td><input type="text" id="ph_alarmMin" value="" class="tl" placeholder="请输入PH值警报下限值"></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>PH值警报上限值：</td>
+								<td><input type="text" id="ph_alarmMax" class="tl" value="" placeholder="请输入PH值警报上限值"></td>
+								<td>&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td>溶解氧单位：</td>
+								<td><input type="text" id="oxygen_unit" class="tl" value="" placeholder="请输入溶解氧单位（如：mg/L）"></td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="14%">溶解氧下限值：</td>
+								<td width="41%"><input type="text" id="oxygen_scopeMin" value="" class="tl" placeholder="请输入溶解氧下限值"></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>溶解氧上限值：</td>
+								<td><input type="text" id="oxygen_scopeMax" class="tl" value="" placeholder="请输入溶解氧上限值" required=""></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>溶解氧警报下限值：</td>
+								<td><input type="text" id="oxygen_alarmMin" value="" class="tl" placeholder="请输入溶解氧警报下限值"></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>溶解氧警报上限值：</td>
+								<td><input type="text" id="oxygen_alarmMax" class="tl" value="" placeholder="请输入溶解氧警报上限值"></td>
+								<td>&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td>浊度单位：</td>
+								<td><input type="text" id="turbidity_unit" class="tl" value="" placeholder="请输入浊度单位（如：NTU）"></td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="14%">浊度下限值：</td>
+								<td width="41%"><input type="text" id="turbidity_scopeMin" value="" class="tl" placeholder="请输入浊度下限值"></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>浊度上限值：</td>
+								<td><input type="text" id="turbidity_scopeMax" class="tl" value="" placeholder="请输入浊度上限值" required=""></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>浊度警报下限值：</td>
+								<td><input type="text" id="turbidity_alarmMin" value="" class="tl" placeholder="请输入浊度警报下限值"></td>
+								<td width="45%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td>浊度警报上限值：</td>
+								<td><input type="text" id="turbidity_alarmMax" class="tl" value="" placeholder="请输入浊度警报上限值"></td>
+								<td>&nbsp;</td>
+							</tr>
+
+							<tr>
+								<td>&nbsp;</td>
+								<td>
+									<div class="submit" style="background: #337FE5;color: #fff;width: 50px;border-radius: 5px;text-align: center;">保存</div>
+								</td>
+								<td>&nbsp;</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript">
+			//获取温度的值
+			var temp_unit = document.getElementById('temp_unit');
+			var temp_scopeMin = document.getElementById('temp_scopeMin');
+			var temp_scopeMax = document.getElementById('temp_scopeMax');
+			var temp_alarmMin = document.getElementById('temp_alarmMin');
+			var temp_alarmMax = document.getElementById('temp_alarmMax');
+			$.ajax({
+				type: "get",
+				url: "http://www.lx0575.com/water/getParam/1",
+				data: {},
+				async: true,
+				success: function(data) {
+					console.log(data)
+					temp_unit.value = data.unit;
+					temp_scopeMin.value = data.scopeMin;
+					temp_scopeMax.value = data.scopeMax;
+					temp_alarmMin.value = data.alarmMin;
+					temp_alarmMax.value = data.alarmMax;
+				}
+			});
+
+			//获取ph的值
+			var ph_scopeMin = document.getElementById('ph_scopeMin');
+			var ph_scopeMax = document.getElementById('ph_scopeMax');
+			var ph_alarmMin = document.getElementById('ph_alarmMin');
+			var ph_alarmMax = document.getElementById('ph_alarmMax');
+			$.ajax({
+				type: "get",
+				url: "http://www.lx0575.com/water/getParam/2",
+				data: {},
+				async: true,
+				success: function(data) {
+					console.log(data)
+					ph_scopeMin.value = data.scopeMin;
+					ph_scopeMax.value = data.scopeMax;
+					ph_alarmMin.value = data.alarmMin;
+					ph_alarmMax.value = data.alarmMax;
+				}
+			});
+
+			//获取溶解氧的值
+			var oxygen_unit = document.getElementById('oxygen_unit');
+			var oxygen_scopeMin = document.getElementById('oxygen_scopeMin');
+			var oxygen_scopeMax = document.getElementById('oxygen_scopeMax');
+			var oxygen_alarmMin = document.getElementById('oxygen_alarmMin');
+			var oxygen_alarmMax = document.getElementById('oxygen_alarmMax');
+			$.ajax({
+				type: "get",
+				url: "http://www.lx0575.com/water/getParam/3",
+				data: {},
+				async: true,
+				success: function(data) {
+					console.log(data)
+					oxygen_unit.value = data.unit;
+					oxygen_scopeMin.value = data.scopeMin;
+					oxygen_scopeMax.value = data.scopeMax;
+					oxygen_alarmMin.value = data.alarmMin;
+					oxygen_alarmMax.value = data.alarmMax;
+				}
+			});
+
+			//获取浊度的值
+			var turbidity_unit = document.getElementById('turbidity_unit');
+			var turbidity_scopeMin = document.getElementById('turbidity_scopeMin');
+			var turbidity_scopeMax = document.getElementById('turbidity_scopeMax');
+			var turbidity_alarmMin = document.getElementById('turbidity_alarmMin');
+			var turbidity_alarmMax = document.getElementById('turbidity_alarmMax');
+			$.ajax({
+				type: "get",
+				url: "http://www.lx0575.com/water/getParam/4",
+				data: {},
+				async: true,
+				success: function(data) {
+					console.log(data)
+					turbidity_unit.value = data.unit;
+					turbidity_scopeMin.value = data.scopeMin;
+					turbidity_scopeMax.value = data.scopeMax;
+					turbidity_alarmMin.value = data.alarmMin;
+					turbidity_alarmMax.value = data.alarmMax;
+				}
+			});
+			var submit = document.getElementsByClassName('submit');
+			submit[0].onclick = function() {
+				save();
+			}
+
+			function save() {
+				var num = 0;
+				
+				var temp_unit = document.getElementById('temp_unit').value;
+				var temp_scopeMin = document.getElementById('temp_scopeMin').value;
+				var temp_scopeMax = document.getElementById('temp_scopeMax').value;
+				var temp_alarmMin = document.getElementById('temp_alarmMin').value;
+				var temp_alarmMax = document.getElementById('temp_alarmMax').value;
+				var data = {
+					'id':1,
+					'paramId': 1,
+					'alarmMax': parseFloat(temp_alarmMax),
+					'alarmMin': parseFloat(temp_alarmMin),
+					'chinese': '温度',
+					'curvePoints': 50,
+					'english': 'temperature',
+					'scopeMax': parseFloat(temp_scopeMax),
+					'scopeMin': parseFloat(temp_scopeMin),
+					'unit': temp_unit
+				}
+
+				$.ajax({
+					type: "put",
+					url: "http://www.lx0575.com/water/updateParam",
+					contentType:'application/json',
+					data: JSON.stringify(data),
+					async: false,
+					success: function(data) {
+						console.log(data)
+						if(data.code == 200){
+							num ++;
+						}
+
+					}
+				});
+
+				var ph_scopeMin = document.getElementById('ph_scopeMin').value;
+				var ph_scopeMax = document.getElementById('ph_scopeMax').value;
+				var ph_alarmMin = document.getElementById('ph_alarmMin').value;
+				var ph_alarmMax = document.getElementById('ph_alarmMax').value;
+				var data = {
+					'id':2,
+					'paramId': 2,
+					'alarmMax': parseFloat(ph_alarmMax),
+					'alarmMin': parseFloat(ph_alarmMin),
+					'chinese': 'PH值',
+					'curvePoints': 50,
+					'english': 'ph',
+					'scopeMax': parseFloat(ph_scopeMax),
+					'scopeMin': parseFloat(ph_scopeMin),
+					'unit': ""
+				}
+				$.ajax({
+					type: "put",
+					url: "http://www.lx0575.com/water/updateParam",
+					contentType:'application/json',
+					data: JSON.stringify(data),
+					async: false,
+					success: function(data) {
+						console.log(data)
+						if(data.code == 200){
+							num ++;
+						}
+
+					}
+				});
+				
+				var oxygen_unit = document.getElementById('oxygen_unit').value;
+				var oxygen_scopeMin = document.getElementById('oxygen_scopeMin').value;
+				var oxygen_scopeMax = document.getElementById('oxygen_scopeMax').value;
+				var oxygen_alarmMin = document.getElementById('oxygen_alarmMin').value;
+				var oxygen_alarmMax = document.getElementById('oxygen_alarmMax').value;
+				var data = {
+					'id':3,
+					'paramId': 3,
+					'alarmMax': parseFloat(oxygen_alarmMax),
+					'alarmMin': parseFloat(oxygen_alarmMin),
+					'chinese': '溶解氧',
+					'curvePoints': 50,
+					'english': 'dissolved oxygen',
+					'scopeMax': parseFloat(oxygen_scopeMax),
+					'scopeMin': parseFloat(oxygen_scopeMin),
+					'unit': oxygen_unit
+				}
+				$.ajax({
+					type: "put",
+					url: "http://www.lx0575.com/water/updateParam",
+					contentType:'application/json',
+					data: JSON.stringify(data),
+					async: false,
+					success: function(data) {
+						console.log(data)
+						if(data.code == 200){
+							num ++;
+						}
+
+					}
+				});
+				
+				var turbidity_unit = document.getElementById('turbidity_unit').value;
+				var turbidity_scopeMin = document.getElementById('turbidity_scopeMin').value;
+				var turbidity_scopeMax = document.getElementById('turbidity_scopeMax').value;
+				var turbidity_alarmMin = document.getElementById('turbidity_alarmMin').value;
+				var turbidity_alarmMax = document.getElementById('turbidity_alarmMax').value;
+				var data = {
+					'id':4,
+					'paramId': 4,
+					'alarmMax': parseFloat(turbidity_alarmMax),
+					'alarmMin': parseFloat(turbidity_alarmMin),
+					'chinese': '浊度',
+					'curvePoints': 50,
+					'english': 'turbidity',
+					'scopeMax': parseFloat(turbidity_scopeMax),
+					'scopeMin': parseFloat(turbidity_scopeMin),
+					'unit': turbidity_unit
+				}
+				$.ajax({
+					type: "put",
+					url: "http://www.lx0575.com/water/updateParam",
+					contentType:'application/json',
+					data: JSON.stringify(data),
+					async: false,
+					success: function(data) {
+						console.log(data)
+						if(data.code == 200){
+							num ++;
+						}
+
+					}
+				});
+				
+				if(num == 4){
+					alert('保存成功');
+					window.location.reload();
+				}else{
+					alert('保存失败');
+				}
+			}
+		</script>
+	</body>
+
+</html>

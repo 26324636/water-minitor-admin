@@ -1,0 +1,63 @@
+body {
+	height: 100%;
+	margin: 0;
+	background: url(../image/echart_bac.jpg);
+	background-size: 100% 100%;
+}
+
+#container {
+	height: 500px;
+	width: 100%;
+	padding-top: 50px;
+}
+.canshu{
+	width: 40%;
+	margin-left: 35%;
+	background: #fff;
+	opacity: 0.6;
+	border-radius: 10px;
+}
+.upperLimit{
+	display:flex;
+	width: 100%;
+	justify-content: center;
+	font-size: 15px;
+}
+.upperLimit-text{
+	width: 50%;
+	text-align: right;
+}
+.upperLimit-num{
+	width: 50%;
+	text-align: left;
+}
+.lowerLimit{
+	display:flex;
+	width: 100%;
+	text-align: center;
+	justify-content: center;
+	font-size: 15px;
+}
+.lowerLimit-text{
+	width: 50%;
+	text-align: right;
+}
+.lowerLimit-num{
+	width: 50%;
+	text-align: left;
+}
+.current{
+	display:flex;
+	width: 100%;
+	text-align: center;
+	justify-content: center;
+	font-size: 15px;
+}
+.current-text{
+	width: 50%;
+	text-align: right;
+}
+.current-num{
+	width: 50%;
+	text-align: left;
+}

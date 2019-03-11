@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/supersized.css" />
+	</head>
+
+	<body style="text-align: center;">
+
+		<script src="js/jquery-1.8.2.min.js"></script>
+		<script src="js/supersized.3.2.7.min.js"></script>
+		<script src="js/supersized-init.js"></script>
+		<script type="text/javascript" src="js/castapp.js"></script>
+		<script type="text/javascript" src="js/mui.js"></script>
+		<div class="mui-content index_div">
+			<h1 class="index_h1">登录</h1>
+			<input type="text" placeholder="请输入账号" id="user">
+			</p>
+			<input type="password" name="password" class="password" placeholder="请输入密码" id="password">
+			<div>
+				<button class="index_btn" id="btn">登录</button>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/castapp.js"></script>
+
+		<script>
+			dj.init();
+			localStorage.setItem('user', '');
+			var request_url = localStorage.getItem('request_url');
+			var phone = 5;
+			var name = dj.id('user')
+			var pass = dj.id('password');
+			var btn = dj.id('btn')
+
+			btn.onclick = function() { //登录按钮    
+				var data = {
+					'userName':user.value,
+					'password': pass.value
+				}
+				$.ajax({
+					type: "POST",
+					url: "http://www.lx0575.com/userWater/login",
+					contentType: 'application/json',
+					data:JSON.stringify(data),
+					async: true,
+					success: function(data) {
+						if(data.code == 200) {
+							alert('登录成功');
+							window.location.href = "index1.html";
+							localStorage.setItem('user', user.value);
+
+						} else {
+							alert('登录失败');
+						}
+					}
+				});
+
+			}
+		</script>
+
+		</script>
+	</body>
+
+</html>
